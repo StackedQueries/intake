@@ -307,6 +307,75 @@
       color: var(--rh-neutral-500);
       margin-top: 0.25rem;
     }
+
+    /* Person cards (primary, spouse, children) */
+    .person-card {
+      background: var(--rh-neutral-50);
+      border: 1px solid var(--rh-neutral-300);
+      border-radius: var(--rh-radius-md);
+      padding: var(--rh-space-xl);
+      margin-bottom: var(--rh-space-xl);
+    }
+
+    .person-card.primary {
+      background: var(--rh-white);
+      border-color: var(--rh-primary-muted);
+      box-shadow: 0 2px 12px rgba(13, 148, 136, 0.08);
+    }
+
+    .person-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--rh-space-lg);
+      padding-bottom: var(--rh-space-md);
+      border-bottom: 1px solid var(--rh-neutral-300);
+    }
+
+    .person-card.primary .person-card-header {
+      border-bottom-color: var(--rh-primary-muted);
+    }
+
+    .person-role {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--rh-primary-dark);
+    }
+
+    .btn-remove-person {
+      background: none;
+      border: none;
+      color: var(--rh-neutral-500);
+      font-size: 0.875rem;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--rh-radius-sm);
+      transition: color var(--rh-duration) var(--rh-ease), background var(--rh-duration) var(--rh-ease);
+    }
+
+    .btn-remove-person:hover {
+      color: var(--rh-secondary);
+      background: #FFE4E6;
+    }
+
+    .add-person-row {
+      margin-bottom: var(--rh-space-xl);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--rh-space-md);
+    }
+
+    .btn-secondary {
+      background: var(--rh-white);
+      color: var(--rh-primary-dark);
+      border: 1px solid var(--rh-primary);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--rh-primary-muted);
+    }
   </style>
 </head>
 <body>
@@ -319,64 +388,82 @@
 
     <div id="form-container" class="form-container">
       <form id="intake-form" class="card" action="#" method="post">
-        <h2 class="card-title">Your information</h2>
+        <!-- Primary (your) information -->
+        <div class="person-card primary" data-role="primary">
+          <div class="person-card-header">
+            <span class="person-role">Primary</span>
+          </div>
+          <h2 class="card-title">Your information</h2>
 
-        <div class="field">
-          <label for="name">Full name</label>
-          <input type="text" id="name" name="name" required placeholder="e.g. Jane Smith" autocomplete="name" />
-        </div>
-
-        <div class="field">
-          <label for="phone">Phone number</label>
-          <input type="tel" id="phone" name="phone" required placeholder="e.g. (555) 123-4567" autocomplete="tel" />
-        </div>
-
-        <div class="row">
           <div class="field">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required placeholder="e.g. jane@example.com" autocomplete="email" />
+            <label for="name">Full name</label>
+            <input type="text" id="name" name="name" required placeholder="e.g. Jane Smith" autocomplete="name" />
           </div>
+
           <div class="field">
-            <label for="zip">Zip code</label>
-            <input type="text" id="zip" name="zip" required placeholder="e.g. 30301" pattern="[0-9]{5}(-[0-9]{4})?" autocomplete="postal-code" maxlength="10" />
+            <label for="phone">Phone number</label>
+            <input type="tel" id="phone" name="phone" required placeholder="e.g. (555) 123-4567" autocomplete="tel" />
           </div>
-        </div>
 
-        <div class="field">
-          <label for="birthday">Birthday</label>
-          <input type="date" id="birthday" name="birthday" required />
-        </div>
+          <div class="row">
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required placeholder="e.g. jane@example.com" autocomplete="email" />
+            </div>
+            <div class="field">
+              <label for="zip">Zip code</label>
+              <input type="text" id="zip" name="zip" required placeholder="e.g. 30301" pattern="[0-9]{5}(-[0-9]{4})?" autocomplete="postal-code" maxlength="10" />
+            </div>
+          </div>
 
-        <div class="row">
           <div class="field">
-            <label for="height">Height</label>
-            <input type="text" id="height" name="height" required placeholder="e.g. 5 ft 10 in or 70 in" />
-            <p class="helper">Feet and inches, or total inches</p>
+            <label for="birthday">Birthday</label>
+            <input type="date" id="birthday" name="birthday" required />
           </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="height">Height</label>
+              <input type="text" id="height" name="height" required placeholder="e.g. 5 ft 10 in or 70 in" />
+              <p class="helper">Feet and inches, or total inches</p>
+            </div>
+            <div class="field">
+              <label for="weight">Weight (lbs)</label>
+              <input type="number" id="weight" name="weight" required min="1" max="999" step="0.1" placeholder="e.g. 150" />
+            </div>
+          </div>
+
           <div class="field">
-            <label for="weight">Weight (lbs)</label>
-            <input type="number" id="weight" name="weight" required min="1" max="999" step="0.1" placeholder="e.g. 150" />
+            <span class="label" style="margin-bottom: 0.5rem; display: block;">Health</span>
+            <div class="checkbox-group">
+              <label class="checkbox-label" for="smoker">
+                <input type="checkbox" id="smoker" name="smoker" value="yes" />
+                Smoker
+              </label>
+              <label class="checkbox-label" for="high-blood-pressure">
+                <input type="checkbox" id="high-blood-pressure" name="high_blood_pressure" value="yes" />
+                High blood pressure
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="medications">Current medications</label>
+            <textarea id="medications" name="medications" rows="3" placeholder="List any current medications"></textarea>
           </div>
         </div>
 
-        <div class="field">
-          <span class="label" style="margin-bottom: 0.5rem; display: block;">Health</span>
-          <div class="checkbox-group">
-            <label class="checkbox-label" for="smoker">
-              <input type="checkbox" id="smoker" name="smoker" value="yes" />
-              Smoker
-            </label>
-            <label class="checkbox-label" for="high-blood-pressure">
-              <input type="checkbox" id="high-blood-pressure" name="high_blood_pressure" value="yes" />
-              High blood pressure
-            </label>
-          </div>
+        <!-- Spouse -->
+        <div class="add-person-row">
+          <button type="button" class="btn btn-secondary" id="add-spouse-btn">+ Add spouse</button>
         </div>
+        <div id="spouse-container"></div>
 
-        <div class="field">
-          <label for="medications">Current medications</label>
-          <textarea id="medications" name="medications" rows="3" placeholder="List any current medications"></textarea>
+        <!-- Children -->
+        <div class="add-person-row">
+          <button type="button" class="btn btn-secondary" id="add-child-btn">+ Add child</button>
         </div>
+        <div id="children-container"></div>
 
         <div id="form-error" class="form-error" role="alert" aria-live="polite"></div>
 
@@ -393,13 +480,17 @@
 
   <script>
     (function () {
-      const FORM_ACTION_URL = 'https://script.google.com/macros/s/AKfycbw1-yDHux5c19kz18cIhCfdL_mjQ7M6NF_S84ScIqRx7ckK_oCD70fXkEaAdQnoR_cp/exec';
+      const FORM_ACTION_URL = 'https://script.google.com/macros/s/AKfycbyycbuSiwYbGBUcd2Epus9yC8Vrvp1P0hlBX5uMBF5v40z947v_WT1hQUsYdo8lmk2W/exec';
 
       const form = document.getElementById('intake-form');
       const formContainer = document.getElementById('form-container');
       const successMessage = document.getElementById('success-message');
       const formError = document.getElementById('form-error');
       const submitBtn = document.getElementById('submit-btn');
+      const spouseContainer = document.getElementById('spouse-container');
+      const childrenContainer = document.getElementById('children-container');
+
+      let childCount = 0;
 
       function showError(message) {
         formError.textContent = message;
@@ -416,6 +507,154 @@
         submitBtn.textContent = loading ? 'Sending…' : 'Send my information';
       }
 
+      function personFieldsHtml(prefix, roleLabel, includeContact) {
+        if (includeContact === undefined) includeContact = true;
+        const id = function (s) { return prefix + s; };
+        var contactBlock = includeContact
+          ? (
+              '<div class="field">' +
+                '<label for="' + id('phone') + '">Phone number</label>' +
+                '<input type="tel" id="' + id('phone') + '" name="' + id('phone') + '" required placeholder="e.g. (555) 123-4567" />' +
+              '</div>' +
+              '<div class="row">' +
+                '<div class="field">' +
+                  '<label for="' + id('email') + '">Email</label>' +
+                  '<input type="email" id="' + id('email') + '" name="' + id('email') + '" required placeholder="e.g. jane@example.com" />' +
+                '</div>' +
+                '<div class="field">' +
+                  '<label for="' + id('zip') + '">Zip code</label>' +
+                  '<input type="text" id="' + id('zip') + '" name="' + id('zip') + '" required placeholder="e.g. 30301" pattern="[0-9]{5}(-[0-9]{4})?" maxlength="10" />' +
+                '</div>' +
+              '</div>'
+            )
+          : '';
+        return (
+          '<div class="person-card" data-role="' + roleLabel.toLowerCase() + '" data-prefix="' + prefix + '">' +
+            '<div class="person-card-header">' +
+              '<span class="person-role">' + roleLabel + '</span>' +
+              '<button type="button" class="btn-remove-person" aria-label="Remove">Remove</button>' +
+            '</div>' +
+            '<h2 class="card-title">' + roleLabel + ' information</h2>' +
+            '<div class="field">' +
+              '<label for="' + id('name') + '">Full name</label>' +
+              '<input type="text" id="' + id('name') + '" name="' + id('name') + '" required placeholder="e.g. Jane Smith" />' +
+            '</div>' +
+            contactBlock +
+            '<div class="field">' +
+              '<label for="' + id('birthday') + '">Birthday</label>' +
+              '<input type="date" id="' + id('birthday') + '" name="' + id('birthday') + '" required />' +
+            '</div>' +
+            '<div class="row">' +
+              '<div class="field">' +
+                '<label for="' + id('height') + '">Height</label>' +
+                '<input type="text" id="' + id('height') + '" name="' + id('height') + '" required placeholder="e.g. 5 ft 10 in or 70 in" />' +
+                '<p class="helper">Feet and inches, or total inches</p>' +
+              '</div>' +
+              '<div class="field">' +
+                '<label for="' + id('weight') + '">Weight (lbs)</label>' +
+                '<input type="number" id="' + id('weight') + '" name="' + id('weight') + '" required min="1" max="999" step="0.1" placeholder="e.g. 150" />' +
+              '</div>' +
+            '</div>' +
+            '<div class="field">' +
+              '<span class="label" style="margin-bottom: 0.5rem; display: block;">Health</span>' +
+              '<div class="checkbox-group">' +
+                '<label class="checkbox-label"><input type="checkbox" id="' + id('smoker') + '" name="' + id('smoker') + '" value="yes" /> Smoker</label>' +
+                '<label class="checkbox-label"><input type="checkbox" id="' + id('high_blood_pressure') + '" name="' + id('high_blood_pressure') + '" value="yes" /> High blood pressure</label>' +
+              '</div>' +
+            '</div>' +
+            '<div class="field">' +
+              '<label for="' + id('medications') + '">Current medications</label>' +
+              '<textarea id="' + id('medications') + '" name="' + id('medications') + '" rows="3" placeholder="List any current medications"></textarea>' +
+            '</div>' +
+          '</div>'
+        );
+      }
+
+      document.getElementById('add-spouse-btn').addEventListener('click', function () {
+        if (spouseContainer.querySelector('.person-card')) return;
+        spouseContainer.innerHTML = personFieldsHtml('spouse_', 'Spouse', false);
+        var card = spouseContainer.querySelector('.person-card');
+        card.querySelector('.btn-remove-person').addEventListener('click', function () {
+          card.remove();
+        });
+      });
+
+      document.getElementById('add-child-btn').addEventListener('click', function () {
+        childCount++;
+        var prefix = 'child_' + childCount + '_';
+        var label = 'Child ' + childCount;
+        var wrap = document.createElement('div');
+        wrap.innerHTML = personFieldsHtml(prefix, label, false);
+        var card = wrap.firstElementChild;
+        card.querySelector('.btn-remove-person').addEventListener('click', function () {
+          card.remove();
+        });
+        childrenContainer.appendChild(card);
+      });
+
+      function getPrimaryPayload() {
+        return {
+          name: form.name.value.trim(),
+          height: form.height.value.trim(),
+          weight: form.weight.value.trim(),
+          birthday: form.birthday.value,
+          medications: (form.medications && form.medications.value) ? form.medications.value.trim() : '',
+          smoker: form.smoker ? form.smoker.checked : false,
+          high_blood_pressure: form.high_blood_pressure ? form.high_blood_pressure.checked : false,
+          phone: form.phone.value.trim(),
+          email: form.email.value.trim(),
+          zip: form.zip.value.trim()
+        };
+      }
+
+      function getPersonPayload(prefix) {
+        var root = form.querySelector('[data-prefix="' + prefix + '"]');
+        if (!root) return null;
+        var get = function (n) {
+          var el = form.querySelector('[name="' + prefix + n + '"]');
+          return el ? (el.type === 'checkbox' ? el.checked : el.value.trim()) : '';
+        };
+        var smokerEl = form.querySelector('[name="' + prefix + 'smoker"]');
+        var hbpEl = form.querySelector('[name="' + prefix + 'high_blood_pressure"]');
+        return {
+          name: get('name'),
+          phone: get('phone'),
+          email: get('email'),
+          zip: get('zip'),
+          birthday: get('birthday'),
+          height: get('height'),
+          weight: get('weight'),
+          medications: get('medications') || '',
+          smoker: smokerEl ? smokerEl.checked : false,
+          high_blood_pressure: hbpEl ? hbpEl.checked : false
+        };
+      }
+
+      function validatePayload(p, role) {
+        if (!p.name || !p.birthday || !p.height || !p.weight) return false;
+        if (role === 'primary' && (!p.phone || !p.email || !p.zip)) return false;
+        return true;
+      }
+
+      function collectPeople() {
+        var people = [{ role: 'primary', payload: getPrimaryPayload(), intake_parent_id: null }];
+        var spouseCard = form.querySelector('[data-role="spouse"]');
+        if (spouseCard) {
+          var p = getPersonPayload('spouse_');
+          if (p && (p.name || p.phone || p.email || p.zip || p.birthday || p.height || p.weight)) {
+            people.push({ role: 'spouse', payload: p, intake_parent_id: null });
+          }
+        }
+        form.querySelectorAll('[data-role="child"]').forEach(function (card) {
+          var prefix = card.getAttribute('data-prefix');
+          var p = getPersonPayload(prefix);
+          if (p && (p.name || p.phone || p.email || p.zip || p.birthday || p.height || p.weight)) {
+            people.push({ role: 'child', payload: p, intake_parent_id: null });
+          }
+        });
+        return people;
+      }
+
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         hideError();
@@ -425,48 +664,64 @@
           return;
         }
 
-        const name = form.name.value.trim();
-        const height = form.height.value.trim();
-        const weight = form.weight.value.trim();
-        const birthday = form.birthday.value;
-        const medications = form.medications.value.trim();
-        const smoker = form.smoker.checked;
-        const highBloodPressure = form.high_blood_pressure.checked;
-        const phone = form.phone.value.trim();
-        const email = form.email.value.trim();
-        const zip = form.zip.value.trim();
-
-        if (!name || !height || !weight || !birthday || !phone || !email || !zip) {
-          showError('Please fill in all required fields.');
+        var people = collectPeople();
+        var primary = people[0].payload;
+        if (!validatePayload(primary, 'primary')) {
+          showError('Please fill in all required fields for the primary applicant.');
           return;
+        }
+        for (var i = 1; i < people.length; i++) {
+          if (!validatePayload(people[i].payload, people[i].role)) {
+            showError('Please fill in all required fields for ' + people[i].role + '.');
+            return;
+          }
         }
 
         setLoading(true);
+        var householdId = 'hh_' + Date.now() + '_' + Math.random().toString(36).slice(2, 11);
 
-        fetch(FORM_ACTION_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: name,
-            height: height,
-            weight: weight,
-            birthday: birthday,
-            medications: medications || '',
-            smoker: smoker,
-            high_blood_pressure: highBloodPressure,
-            phone: phone,
-            email: email,
-            zip: zip
-          })
-        }).then(function () {
-          // no-cors yields opaque response; treat as success if no throw
-          formContainer.classList.add('hidden');
-          successMessage.classList.add('visible');
-        }).catch(function (err) {
-          showError('Something went wrong. Please try again or contact us directly.');
-          setLoading(false);
-        });
+        function sendOne(person) {
+          var body = {
+            name: person.payload.name,
+            height: person.payload.height,
+            weight: person.payload.weight,
+            birthday: person.payload.birthday,
+            medications: person.payload.medications || '',
+            smoker: person.payload.smoker,
+            high_blood_pressure: person.payload.high_blood_pressure,
+            phone: person.payload.phone || '',
+            email: person.payload.email || '',
+            zip: person.payload.zip || '',
+            role: person.role,
+            intake_parent_id: person.intake_parent_id || null,
+            household_id: householdId
+          };
+
+          return fetch(FORM_ACTION_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+          });
+        }
+
+        var queue = people.slice();
+        function runNext() {
+          if (queue.length === 0) {
+            formContainer.classList.add('hidden');
+            successMessage.classList.add('visible');
+            setLoading(false);
+            return;
+          }
+          var person = queue.shift();
+          sendOne(person).then(function () {
+            runNext();
+          }).catch(function () {
+            showError('Something went wrong. Please try again or contact us directly.');
+            setLoading(false);
+          });
+        }
+        runNext();
       });
     })();
   </script>
