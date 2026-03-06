@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intake Form — Richards Health</title>
+  <meta name="description" content="Submit your intake information. We're here with you—informed, caring, and on your side." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --rh-primary: #0D9488;
+      --rh-primary-dark: #0F766E;
+      --rh-primary-light: #2DD4BF;
+      --rh-primary-muted: #CCFBF1;
+      --rh-secondary: #F43F5E;
+      --rh-trust: #0C4A6E;
+      --rh-trust-muted: #E0F2FE;
+      --rh-neutral-900: #0F172A;
+      --rh-neutral-700: #334155;
+      --rh-neutral-500: #64748B;
+      --rh-neutral-300: #CBD5E1;
+      --rh-neutral-100: #F1F5F9;
+      --rh-neutral-50: #F8FAFC;
+      --rh-white: #FFFFFF;
+      --rh-font-display: "Syne", "Plus Jakarta Sans", system-ui, sans-serif;
+      --rh-font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+      --rh-space-xs: 0.25rem;
+      --rh-space-sm: 0.5rem;
+      --rh-space-md: 1rem;
+      --rh-space-lg: 1.5rem;
+      --rh-space-xl: 2rem;
+      --rh-space-2xl: 3rem;
+      --rh-space-3xl: 4rem;
+      --rh-radius-sm: 6px;
+      --rh-radius-md: 10px;
+      --rh-radius-lg: 14px;
+      --rh-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --rh-duration: 0.2s;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--rh-font-body);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--rh-neutral-900);
+      background: var(--rh-neutral-50);
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, var(--rh-primary-muted) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, var(--rh-trust-muted) 0%, transparent 55%);
+    }
+
+    .wrap {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: var(--rh-space-2xl);
+    }
+
+    header .label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--rh-primary-dark);
+      margin-bottom: var(--rh-space-sm);
+    }
+
+    h1 {
+      font-family: var(--rh-font-display);
+      font-size: clamp(1.75rem, 5vw, 2.25rem);
+      font-weight: 700;
+      color: var(--rh-neutral-900);
+      margin: 0 0 var(--rh-space-sm);
+      line-height: 1.2;
+    }
+
+    .sub {
+      font-size: 0.9375rem;
+      color: var(--rh-neutral-700);
+      margin: 0;
+      max-width: 42ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .card {
+      background: var(--rh-white);
+      border-radius: var(--rh-radius-lg);
+      box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+      border: 1px solid var(--rh-neutral-300);
+      padding: var(--rh-space-xl) var(--rh-space-2xl);
+      margin-bottom: var(--rh-space-xl);
+    }
+
+    .card-title {
+      font-family: var(--rh-font-display);
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--rh-neutral-900);
+      margin: 0 0 var(--rh-space-md);
+    }
+
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--rh-neutral-900);
+      margin-bottom: 0.35rem;
+    }
+
+    .field {
+      margin-bottom: var(--rh-space-md);
+    }
+
+    .field:last-of-type {
+      margin-bottom: 0;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+      font-family: var(--rh-font-body);
+      font-size: 1rem;
+      border: 1px solid var(--rh-neutral-300);
+      border-radius: var(--rh-radius-md);
+      color: var(--rh-neutral-900);
+      background: var(--rh-white);
+      transition: border-color var(--rh-duration) var(--rh-ease), box-shadow var(--rh-duration) var(--rh-ease);
+    }
+
+    textarea {
+      min-height: 4rem;
+      resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--rh-neutral-500);
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--rh-primary);
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.2);
+    }
+
+    /* Checkboxes */
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--rh-space-lg);
+      margin-bottom: var(--rh-space-md);
+    }
+
+    .checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--rh-neutral-900);
+      cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+      width: 1.125rem;
+      height: 1.125rem;
+      accent-color: var(--rh-primary);
+      cursor: pointer;
+    }
+
+    .row {
+      display: flex;
+      gap: var(--rh-space-md);
+      margin-bottom: var(--rh-space-md);
+    }
+
+    .row .field {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 0.9rem 1.5rem;
+      font-family: var(--rh-font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: var(--rh-radius-md);
+      border: none;
+      cursor: pointer;
+      transition: background var(--rh-duration) var(--rh-ease), transform var(--rh-duration) var(--rh-ease), box-shadow var(--rh-duration) var(--rh-ease);
+    }
+
+    .btn:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--rh-primary);
+      color: var(--rh-white);
+      margin-top: var(--rh-space-lg);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--rh-primary-dark);
+      box-shadow: 0 6px 20px rgba(13, 148, 136, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.8;
+      cursor: not-allowed;
+    }
+
+    /* Success state */
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: var(--rh-space-3xl) var(--rh-space-xl);
+      background: var(--rh-white);
+      border-radius: var(--rh-radius-lg);
+      box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+      border: 1px solid var(--rh-neutral-300);
+    }
+
+    .success-message.visible {
+      display: block;
+    }
+
+    .success-message .icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto var(--rh-space-md);
+      background: var(--rh-primary-muted);
+      color: var(--rh-primary-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .success-message h2 {
+      font-family: var(--rh-font-display);
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: var(--rh-neutral-900);
+      margin: 0 0 var(--rh-space-sm);
+    }
+
+    .success-message p {
+      font-size: 0.9375rem;
+      color: var(--rh-neutral-700);
+      margin: 0;
+    }
+
+    /* Error message */
+    .form-error {
+      display: none;
+      margin-top: var(--rh-space-md);
+      padding: var(--rh-space-md);
+      background: #FFE4E6;
+      color: var(--rh-secondary);
+      border-radius: var(--rh-radius-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .form-error.visible {
+      display: block;
+    }
+
+    .form-container.hidden {
+      display: none;
+    }
+
+    .helper {
+      font-size: 0.8125rem;
+      color: var(--rh-neutral-500);
+      margin-top: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="label">Richards Health + Valor</p>
+      <h1>Intake form</h1>
+    </header>
+
+    <div id="form-container" class="form-container">
+      <form id="intake-form" class="card" action="#" method="post">
+        <h2 class="card-title">Your information</h2>
+
+        <div class="field">
+          <label for="name">Full name</label>
+          <input type="text" id="name" name="name" required placeholder="e.g. Jane Smith" autocomplete="name" />
+        </div>
+
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input type="tel" id="phone" name="phone" required placeholder="e.g. (555) 123-4567" autocomplete="tel" />
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="e.g. jane@example.com" autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="zip">Zip code</label>
+            <input type="text" id="zip" name="zip" required placeholder="e.g. 30301" pattern="[0-9]{5}(-[0-9]{4})?" autocomplete="postal-code" maxlength="10" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="birthday">Birthday</label>
+          <input type="date" id="birthday" name="birthday" required />
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="height">Height</label>
+            <input type="text" id="height" name="height" required placeholder="e.g. 5 ft 10 in or 70 in" />
+            <p class="helper">Feet and inches, or total inches</p>
+          </div>
+          <div class="field">
+            <label for="weight">Weight (lbs)</label>
+            <input type="number" id="weight" name="weight" required min="1" max="999" step="0.1" placeholder="e.g. 150" />
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="label" style="margin-bottom: 0.5rem; display: block;">Health</span>
+          <div class="checkbox-group">
+            <label class="checkbox-label" for="smoker">
+              <input type="checkbox" id="smoker" name="smoker" value="yes" />
+              Smoker
+            </label>
+            <label class="checkbox-label" for="high-blood-pressure">
+              <input type="checkbox" id="high-blood-pressure" name="high_blood_pressure" value="yes" />
+              High blood pressure
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="medications">Current medications</label>
+          <textarea id="medications" name="medications" rows="3" placeholder="List any current medications (optional)"></textarea>
+        </div>
+
+        <div id="form-error" class="form-error" role="alert" aria-live="polite"></div>
+
+        <button type="submit" class="btn btn-primary" id="submit-btn">Send my information</button>
+      </form>
+    </div>
+
+    <div id="success-message" class="success-message" role="status" aria-live="polite">
+      <div class="icon" aria-hidden="true">✓</div>
+      <h2>We've received your information</h2>
+      <p>Thank you. We'll be in touch—feel free to reach out if you have any questions.</p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const FORM_ACTION_URL = 'https://script.google.com/macros/s/AKfycbw1-yDHux5c19kz18cIhCfdL_mjQ7M6NF_S84ScIqRx7ckK_oCD70fXkEaAdQnoR_cp/exec';
+
+      const form = document.getElementById('intake-form');
+      const formContainer = document.getElementById('form-container');
+      const successMessage = document.getElementById('success-message');
+      const formError = document.getElementById('form-error');
+      const submitBtn = document.getElementById('submit-btn');
+
+      function showError(message) {
+        formError.textContent = message;
+        formError.classList.add('visible');
+      }
+
+      function hideError() {
+        formError.textContent = '';
+        formError.classList.remove('visible');
+      }
+
+      function setLoading(loading) {
+        submitBtn.disabled = loading;
+        submitBtn.textContent = loading ? 'Sending…' : 'Send my information';
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        hideError();
+
+        if (!FORM_ACTION_URL) {
+          showError('Form is not connected yet. Please add your Google Apps Script URL.');
+          return;
+        }
+
+        const name = form.name.value.trim();
+        const height = form.height.value.trim();
+        const weight = form.weight.value.trim();
+        const birthday = form.birthday.value;
+        const medications = form.medications.value.trim();
+        const smoker = form.smoker.checked;
+        const highBloodPressure = form.high_blood_pressure.checked;
+        const phone = form.phone.value.trim();
+        const email = form.email.value.trim();
+        const zip = form.zip.value.trim();
+
+        if (!name || !height || !weight || !birthday || !phone || !email || !zip) {
+          showError('Please fill in all required fields.');
+          return;
+        }
+
+        setLoading(true);
+
+        fetch(FORM_ACTION_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name,
+            height: height,
+            weight: weight,
+            birthday: birthday,
+            medications: medications || '',
+            smoker: smoker,
+            high_blood_pressure: highBloodPressure,
+            phone: phone,
+            email: email,
+            zip: zip
+          })
+        }).then(function () {
+          // no-cors yields opaque response; treat as success if no throw
+          formContainer.classList.add('hidden');
+          successMessage.classList.add('visible');
+        }).catch(function (err) {
+          showError('Something went wrong. Please try again or contact us directly.');
+          setLoading(false);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
