@@ -66,6 +66,13 @@
       margin-bottom: var(--rh-space-2xl);
     }
 
+    header .logo {
+      display: block;
+      margin: 0 auto var(--rh-space-lg);
+      max-width: 180px;
+      height: auto;
+    }
+
     header .label {
       font-size: 0.875rem;
       font-weight: 600;
@@ -305,6 +312,7 @@
 <body>
   <div class="wrap">
     <header>
+      <img src="logo.png" alt="Richards Health" class="logo" />
       <p class="label">Richards Health + Valor</p>
       <h1>Intake form</h1>
     </header>
@@ -367,7 +375,7 @@
 
         <div class="field">
           <label for="medications">Current medications</label>
-          <textarea id="medications" name="medications" rows="3" placeholder="List any current medications (optional)"></textarea>
+          <textarea id="medications" name="medications" rows="3" placeholder="List any current medications"></textarea>
         </div>
 
         <div id="form-error" class="form-error" role="alert" aria-live="polite"></div>
