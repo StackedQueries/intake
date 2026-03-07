@@ -507,8 +507,9 @@
         submitBtn.textContent = loading ? 'Sending…' : 'Send my information';
       }
 
-      function personFieldsHtml(prefix, roleLabel, includeContact) {
+      function personFieldsHtml(prefix, roleLabel, includeContact, roleKey) {
         if (includeContact === undefined) includeContact = true;
+        if (roleKey === undefined) roleKey = roleLabel.toLowerCase();
         const id = function (s) { return prefix + s; };
         var contactBlock = includeContact
           ? (
@@ -529,7 +530,7 @@
             )
           : '';
         return (
-          '<div class="person-card" data-role="' + roleLabel.toLowerCase() + '" data-prefix="' + prefix + '">' +
+          '<div class="person-card" data-role="' + roleKey + '" data-prefix="' + prefix + '">' +
             '<div class="person-card-header">' +
               '<span class="person-role">' + roleLabel + '</span>' +
               '<button type="button" class="btn-remove-person" aria-label="Remove">Remove</button>' +
@@ -572,7 +573,7 @@
 
       document.getElementById('add-spouse-btn').addEventListener('click', function () {
         if (spouseContainer.querySelector('.person-card')) return;
-        spouseContainer.innerHTML = personFieldsHtml('spouse_', 'Spouse', false);
+        spouseContainer.innerHTML = personFieldsHtml('spouse_', 'Spouse', false, 'spouse');
         var card = spouseContainer.querySelector('.person-card');
         card.querySelector('.btn-remove-person').addEventListener('click', function () {
           card.remove();
@@ -584,7 +585,7 @@
         var prefix = 'child_' + childCount + '_';
         var label = 'Child ' + childCount;
         var wrap = document.createElement('div');
-        wrap.innerHTML = personFieldsHtml(prefix, label, false);
+        wrap.innerHTML = personFieldsHtml(prefix, label, false, 'child');
         var card = wrap.firstElementChild;
         card.querySelector('.btn-remove-person').addEventListener('click', function () {
           card.remove();
@@ -705,23 +706,25 @@
           });
         }
 
-        var queue = people.slice();
-        function runNext() {
-          if (queue.length === 0) {
+        var primary = people[0];
+        var dependents = people.slice(1);
+
+        sendOne(primary).then(function () {
+          if (dependents.length === 0) {
             formContainer.classList.add('hidden');
             successMessage.classList.add('visible');
             setLoading(false);
             return;
           }
-          var person = queue.shift();
-          sendOne(person).then(function () {
-            runNext();
-          }).catch(function () {
-            showError('Something went wrong. Please try again or contact us directly.');
-            setLoading(false);
-          });
-        }
-        runNext();
+          return Promise.all(dependents.map(function (person) { return sendOne(person); }));
+        }).then(function () {
+          formContainer.classList.add('hidden');
+          successMessage.classList.add('visible');
+          setLoading(false);
+        }).catch(function () {
+          showError('Something went wrong. Please try again or contact us directly.');
+          setLoading(false);
+        });
       });
     })();
   </script>
